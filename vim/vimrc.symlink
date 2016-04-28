@@ -1,0 +1,32 @@
+set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+
+call vundle#begin()		"only place plugins between begin and end
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'octol/vim-cpp-enhanced-highlight'
+call vundle#end()
+
+filetype plugin indent on
+filetype on
+runtime! ftplugin/man.vim	"enable reading man-pages from vim
+
+" Visual
+set t_Co=256				"256 colors
+syntax enable				"enable syntax highlighting
+colorscheme hybrid			"set theme
+set background=dark			"nicer this way
+
+set number					"display numbers in sidebar
+set relativenumber			"display relative numbers in sidebar
+set tabstop=4				"number of visual spaces in a <tab>
+set softtabstop=4			"number soft spaces in <tab> when editing
+set showcmd					"show entered command in bottom bar
+set cursorline				"highlight current line being edited
+set lazyredraw				"only redraw when needed 
+set wildmenu				"show graphical menu for autocomplete
+set lazyredraw				"only redraw screen when needed
+set showmatch				"show matching parenthesis
+set incsearch				"search as characters are entered
+set hlsearch				"highlight search matches
+
