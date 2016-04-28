@@ -2,12 +2,22 @@
 
 sudo apt-get install -y \
 	git \
+	curl \
 	build-essential \
 	vim \
 	google-chrome-stable \
-	gnome-terminal
-	
+	gnome-terminal \
+	zsh
+
+# Set gnome terminal as default terminal
+sudo update-alternatives --set x-terminal-emulator /usr/bin/gnome-terminal.wrapper	
+
+# Download different tools from git
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+git submodule init
+git submodule update
+
+# Install some pretty fonts
 source fonts/install.sh
