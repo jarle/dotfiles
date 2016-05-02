@@ -5,7 +5,6 @@ sudo apt-get install -y \
 	curl \
 	build-essential \
 	vim \
-	google-chrome-stable \
 	gnome-terminal \
 	zsh
 
