@@ -6,6 +6,7 @@ noremap <Leader>s :update<CR>
 call vundle#begin()		"only place plugins between begin and end
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'octol/vim-cpp-enhanced-highlight'
+Plugin 'Valloric/YouCompleteMe'
 call vundle#end()
 
 filetype plugin indent on

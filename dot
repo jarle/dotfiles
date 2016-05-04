@@ -5,16 +5,17 @@ cd "$(dirname "$0")"
 
 # Useful variables
 BASEDIR="$(pwd)"
-VUNDLEDIR="$HOME/.vim/bundle/Vundle.vim"
-OHMYZSHDIR="$HOME/.oh-my-zsh"
-TERMINALFONT="$HOME/.local/share/fonts/Droid Sans Mono for Powerline.otf"
-APPLICATIONS="git curl build-essential vim gnome-terminal zsh"
+BUNDLEDIR="$HOME/.vim/bundle"
 BACKUPDIR="$BASEDIR/.backup"
+OHMYZSHDIR="$HOME/.oh-my-zsh"
+
+TERMINALFONT="$HOME/.local/share/fonts/Droid Sans Mono for Powerline.otf"
+APPLICATIONS="git curl build-essential gnome-terminal zsh"
 
 printf "Starting installation\n\n"
 sudo -v
 rm -rf $BACKUPDIR
-mkdir -p $BACKUPDIR
+mkdir -p $BACKUPDIR $HOME/.vim $BUNDLEDIR
 
 # Install main applications
 printf "Installing main applications...\n"
@@ -25,9 +26,8 @@ printf "Configuring environment...\n"
 sudo update-alternatives --set x-terminal-emulator /usr/bin/gnome-terminal.wrapper	
 
 # Download and install different tools from git
-git config --global core.excludesfile "$HOME/.gitignore"
-git submodule init
-git submodule update
+git config --global core.excludesfile "$HOME/.gitignore" 1>/dev/null
+git submodule update --init --recursive 1>/dev/null
 
 if ! type vimpager 1>/dev/null; then
 	cd vim/vimpager
@@ -36,9 +36,21 @@ if ! type vimpager 1>/dev/null; then
 	rm -f vim/vimpager_*
 fi
 
-if [ ! -d $VUNDLEDIR ]; then
-	git clone https://github.com/VundleVim/Vundle.vim.git $VUNDLEDIR 
+if [ ! -d "$BUNDLEDIR/Vundle.vim" ]; then
+	git clone https://github.com/VundleVim/Vundle.vim.git "$BUNDLEDIR/Vundle.vim" 1>/dev/null
 fi
+
+if [ -d "$BUNDLEDIR/YouCompleteMe" ]; then
+	# install vim with python support	
+	sudo apt-get remove -qy vim vim-runtime gvim vim-tiny vim-common vim-gui-common 1>/dev/null
+	sudo dpkg -i "$BASEDIR/bin/vim"*.deb 1>/dev/null
+	sudo apt-get install -f 1>/dev/null
+	ln -s "$BASEDIR/vim/YouCompleteMe" "$BUNDLEDIR/YouCompleteMe"
+	cd "$BUNDLEDIR/YouCompleteMe"
+	python install.py --clang-completer &>/dev/null
+	cd $BASEDIR
+fi
+vim +PluginInstall +qall 1>/dev/null
 
 if [ ! -d $OHMYZSHDIR ]; then
 	mkdir -p $OHMYZSHDIR
