@@ -40,17 +40,21 @@ if [ ! -d "$BUNDLEDIR/Vundle.vim" ]; then
 	git clone https://github.com/VundleVim/Vundle.vim.git "$BUNDLEDIR/Vundle.vim" 1>/dev/null
 fi
 
-if [ -d "$BUNDLEDIR/YouCompleteMe" ]; then
+if [ ! -d "$BUNDLEDIR/YouCompleteMe" ]; then
+	printf "\tInstalling Vim and YouCompleteMe. This could take a while..."
 	# install vim with python support	
 	sudo apt-get remove -qy vim vim-runtime gvim vim-tiny vim-common vim-gui-common 1>/dev/null
 	sudo dpkg -i "$BASEDIR/bin/vim"*.deb 1>/dev/null
 	sudo apt-get install -f 1>/dev/null
-	ln -s "$BASEDIR/vim/YouCompleteMe" "$BUNDLEDIR/YouCompleteMe"
+	vim +PluginInstall +qall &>/dev/null
+
+	rm -rf "$BUNDLEDIR/YouCompleteMe"
+	git clone https://github.com/Valloric/YouCompleteMe.git "$BUNDLEDIR/YouCompleteMe/" 1>/dev/null
 	cd "$BUNDLEDIR/YouCompleteMe"
+	git submodule update --init --recursive 1>/dev/null
 	python install.py --clang-completer &>/dev/null
 	cd $BASEDIR
 fi
-vim +PluginInstall +qall 1>/dev/null
 
 if [ ! -d $OHMYZSHDIR ]; then
 	mkdir -p $OHMYZSHDIR
