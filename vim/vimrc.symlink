@@ -32,4 +32,4 @@ set lazyredraw				"only redraw screen when needed
 set showmatch				"show matching parenthesis
 set incsearch				"search as characters are entered
 set hlsearch				"highlight search matches
-
+set virtualedit=onemore		"allow curor at end of line

@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
 
+# Useful variables
+VUNDLEDIR="$HOME/.vim/bundle/Vundle.vim"
+OHMYZSHDIR="$HOME/.oh-my-zsh"
+TERMINALFONT="$HOME/.local/share/fonts/Droid Sans Mono for Powerline.otf"
+
 # Change to dir of script
 cd "$(dirname "$0")"
+sudo -v
 echo "Installing programs and changing settings..."
 
 # Install main applications
@@ -15,26 +21,29 @@ sudo update-alternatives --set x-terminal-emulator /usr/bin/gnome-terminal.wrapp
 git submodule init
 git submodule update
 
-if [ ! command -v vimpager 2>/dev/null ]; then
-	sudo make -f vim/vimpager/Makefile install-deb > /dev/null
+if ! type vimpager &>/dev/null; then
+	cd vim/vimpager
+	sudo make -f Makefile install-deb &>/dev/null
+	cd ../..
+	rm -f vim/vimpager_*
 fi
 
-if [ ! -d "$HOME/.vim/bundle/Vundle.vim" ]; then
-	git clone https://github.com/VundleVim/Vundle.vim.git "$HOME/.vim/bundle/Vundle.vim"
+if [ ! -d $VUNDLEDIR ]; then
+	git clone https://github.com/VundleVim/Vundle.vim.git $VUNDLEDIR 
 fi
 
-if [ ! -d "$HOME/.oh-my-zsh" ]; then
-	mkdir -p "$HOME/.oh-my-zsh"
-	git clone git://github.com/robbyrussell/oh-my-zsh.git "$HOME/.oh-my-zsh"
+if [ ! -d $OHMYZSHDIR ]; then
+	mkdir -p $OHMYZSHDIR
+	git clone git://github.com/robbyrussell/oh-my-zsh.git $OHMYZSHDIR
 	chsh -s /bin/zsh
 fi
 
-if [ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]; then
-	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+if [ ! -d "$OHMYZSHDIR/custom/plugins/zsh-syntax-highlighting" ]; then
+	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $OHMYZSHDIR/custom/plugins/zsh-syntax-highlighting
 fi
 
 # Install some pretty fonts
-if [ ! -f "$HOME/.local/share/fonts/Droid Sans Mono for Powerline.otf" ]; then
+if [ ! -f "$TERMINALFONT" ]; then
 	source fonts/install.sh 
 fi
 
