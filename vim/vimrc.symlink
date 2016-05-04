@@ -1,6 +1,7 @@
 set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
+noremap <Leader>s :update<CR>
 
 call vundle#begin()		"only place plugins between begin and end
 Plugin 'VundleVim/Vundle.vim'
@@ -21,6 +22,8 @@ set number					"display numbers in sidebar
 set relativenumber			"display relative numbers in sidebar
 set tabstop=4				"number of visual spaces in a <tab>
 set softtabstop=4			"number soft spaces in <tab> when editing
+set shiftwidth=4
+set smartindent				"smart indentation
 set showcmd					"show entered command in bottom bar
 set cursorline				"highlight current line being edited
 set lazyredraw				"only redraw when needed 

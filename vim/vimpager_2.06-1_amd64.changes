@@ -1,0 +1,31 @@
+Format: 1.8
+Date: Tue, 04 Aug 2015 05:05:01 -0400
+Source: vimpager
+Binary: vimpager
+Architecture: source all
+Version: 2.06-1
+Distribution: unstable
+Urgency: low
+Maintainer: Rafael Kitover <rkitover@gmail.com>
+Changed-By: Rafael Kitover <rkitover@gmail.com>
+Description:
+ vimpager   - pager using vim and less.vim
+Changes:
+ vimpager (2.06-1) unstable; urgency=low
+ .
+   * Initial debianization.
+Checksums-Sha1:
+ 77c02c1169877428e66dbabc65ea804800e2db98 938 vimpager_2.06-1.dsc
+ db945cfc21051bf68414205afdb1d10ee46bb2e9 155158 vimpager_2.06.orig.tar.gz
+ 4b102f2c11575a27d1f13457639a5ea3d71b1052 5556 vimpager_2.06-1.debian.tar.xz
+ ea629bb847f86a85834bb972d2ebdb4b66364d64 75344 vimpager_2.06-1_all.deb
+Checksums-Sha256:
+ ee34338cb85e4cede35c6f08452541a4eb10dce992b8334fe11be8e30005fc58 938 vimpager_2.06-1.dsc
+ 7f2ae1179e836e9d98ef95de01d27317c7214629063e9b826f7a9b9936ab4e9f 155158 vimpager_2.06.orig.tar.gz
+ c39b1915f73bc38ec032b9c6418e81b4246bf9d9cbc7c291e717c84a0d25b0bd 5556 vimpager_2.06-1.debian.tar.xz
+ 19bc1fea0d76af057cb5581015349eb58e5f955e774dd70073da8491a6c0793a 75344 vimpager_2.06-1_all.deb
+Files:
+ 32749671126d53d20e365dfc03bcb700 938 text optional vimpager_2.06-1.dsc
+ b900136456a70c3341e4b629d773d63b 155158 text optional vimpager_2.06.orig.tar.gz
+ b41adb27c792585abc0d9ebb3a8c5036 5556 text optional vimpager_2.06-1.debian.tar.xz
+ 0f4c56d7b4a4ebcc4619691f8da10a69 75344 text optional vimpager_2.06-1_all.deb

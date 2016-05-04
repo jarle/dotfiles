@@ -1,3 +1,6 @@
 [submodule "fonts"]
 	path = fonts
 	url = https://github.com/powerline/fonts.git
+[submodule "vim/vimpager"]
+	path = vim/vimpager
+	url = https://github.com/rkitover/vimpager.git

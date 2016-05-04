@@ -80,3 +80,8 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Use vimpager for manual and less
+export PAGER=vimpager
+alias less=$PAGER
+alias zless=$PAGEr

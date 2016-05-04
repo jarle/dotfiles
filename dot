@@ -1,22 +1,41 @@
 #!/usr/bin/env bash
 
-sudo apt-get install -y \
-	git \
-	curl \
-	build-essential \
-	vim \
-	gnome-terminal \
-	zsh
+# Change to dir of script
+cd "$(dirname "$0")"
+echo "Installing programs and changing settings..."
+
+# Install main applications
+APPLICATIONS="git curl build-essential vim gnome-terminal zsh"
+sudo apt-get install -qy $APPLICATIONS > /dev/null
 
 # Set gnome terminal as default terminal
 sudo update-alternatives --set x-terminal-emulator /usr/bin/gnome-terminal.wrapper	
 
-# Download different tools from git
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+# Download and install different tools from git
 git submodule init
 git submodule update
 
+if [ ! command -v vimpager 2>/dev/null ]; then
+	sudo make -f vim/vimpager/Makefile install-deb > /dev/null
+fi
+
+if [ ! -d "$HOME/.vim/bundle/Vundle.vim" ]; then
+	git clone https://github.com/VundleVim/Vundle.vim.git "$HOME/.vim/bundle/Vundle.vim"
+fi
+
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+	mkdir -p "$HOME/.oh-my-zsh"
+	git clone git://github.com/robbyrussell/oh-my-zsh.git "$HOME/.oh-my-zsh"
+	chsh -s /bin/zsh
+fi
+
+if [ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]; then
+	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+fi
+
 # Install some pretty fonts
-source fonts/install.sh
+if [ ! -f "$HOME/.local/share/fonts/Droid Sans Mono for Powerline.otf" ]; then
+	source fonts/install.sh 
+fi
+
+echo "Done!"
