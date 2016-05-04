@@ -1,29 +1,37 @@
 #!/usr/bin/env bash
 
+# Change to dir of script
+cd "$(dirname "$0")"
+
 # Useful variables
+BASEDIR="$(pwd)"
 VUNDLEDIR="$HOME/.vim/bundle/Vundle.vim"
 OHMYZSHDIR="$HOME/.oh-my-zsh"
 TERMINALFONT="$HOME/.local/share/fonts/Droid Sans Mono for Powerline.otf"
+APPLICATIONS="git curl build-essential vim gnome-terminal zsh"
+BACKUPDIR="$BASEDIR/.backup"
 
-# Change to dir of script
-cd "$(dirname "$0")"
+printf "Starting installation\n\n"
 sudo -v
-echo "Installing programs and changing settings..."
+rm -rf $BACKUPDIR
+mkdir -p $BACKUPDIR
 
 # Install main applications
-APPLICATIONS="git curl build-essential vim gnome-terminal zsh"
+printf "Installing main applications...\n"
 sudo apt-get install -qy $APPLICATIONS > /dev/null
 
+printf "Configuring environment...\n"
 # Set gnome terminal as default terminal
 sudo update-alternatives --set x-terminal-emulator /usr/bin/gnome-terminal.wrapper	
 
 # Download and install different tools from git
+git config --global core.excludesfile "$HOME/.gitignore"
 git submodule init
 git submodule update
 
-if ! type vimpager &>/dev/null; then
+if ! type vimpager 1>/dev/null; then
 	cd vim/vimpager
-	sudo make -f Makefile install-deb &>/dev/null
+	sudo make -f Makefile install-deb 1>/dev/null
 	cd ../..
 	rm -f vim/vimpager_*
 fi
@@ -42,9 +50,24 @@ if [ ! -d "$OHMYZSHDIR/custom/plugins/zsh-syntax-highlighting" ]; then
 	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $OHMYZSHDIR/custom/plugins/zsh-syntax-highlighting
 fi
 
-# Install some pretty fonts
+printf "Installing fonts...\n"
 if [ ! -f "$TERMINALFONT" ]; then
 	source fonts/install.sh 
 fi
 
-echo "Done!"
+printf "Setting up symlinks...\n"
+
+cp -as "$BASEDIR/vim/colors/" "$HOME/.vim/" &>/dev/null
+cp -as "$BASEDIR/zsh/themes" "$ZSH_CUSTOM" &>/dev/null
+
+for file in */*.symlink; do
+	filename="$HOME/.$(basename $file .symlink)"
+	# create backup if the file already exists
+	if [ -f $filename ]; then
+		mv $filename $BACKUPDIR
+	fi
+	ln $file "$filename"
+done
+
+printf "Done!\n"
+printf "Old files has been put in $BACKUPDIR\n"
