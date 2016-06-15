@@ -7,6 +7,9 @@ call vundle#begin()		"only place plugins between begin and end
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-commentary'
 call vundle#end()
 
 filetype plugin indent on
