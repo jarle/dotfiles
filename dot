@@ -66,6 +66,10 @@ if [ ! -d "$OHMYZSHDIR/custom/plugins/zsh-syntax-highlighting" ]; then
 	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $OHMYZSHDIR/custom/plugins/zsh-syntax-highlighting
 fi
 
+if [ ! -d "$OHMYZSHDIR/customplugins/" ]; then
+	git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+fi
+
 printf "Installing fonts...\n"
 if [ ! -f "$TERMINALFONT" ]; then
 	source fonts/install.sh 
