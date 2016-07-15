@@ -10,7 +10,7 @@ BACKUPDIR="$BASEDIR/.backup"
 OHMYZSHDIR="$HOME/.oh-my-zsh"
 
 TERMINALFONT="$HOME/.local/share/fonts/Droid Sans Mono for Powerline.otf"
-APPLICATIONS="git curl build-essential gnome-terminal zsh libruby2.3"
+APPLICATIONS="git curl build-essential gnome-terminal zsh libruby2.3 pandoc"
 
 printf "Starting installation\n\n"
 sudo -v
