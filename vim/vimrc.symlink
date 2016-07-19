@@ -10,6 +10,10 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-commentary'
+Plugin 'scrooloose/syntastic'
+Plugin 'tpope/vim-dispatch'
+Plugin 'vim-scripts/indentpython.vim'
+Plugin 'kien/ctrlp.vim'
 call vundle#end()
 
 filetype plugin indent on
@@ -37,3 +41,28 @@ set showmatch				"show matching parenthesis
 set incsearch				"search as characters are entered
 set hlsearch				"highlight search matches
 set virtualedit=onemore		"allow curor at end of line
+
+let python_highlight_all=1
+syntax on
+
+let mapleader = "<\pace>"
+"logical clipboard acces
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+autocmd FileType python let b:dispatch = 'python %'
+
