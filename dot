@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 # Change to dir of script
 cd "$(dirname "$0")"
 
@@ -10,7 +12,7 @@ BACKUPDIR="$BASEDIR/.backup"
 OHMYZSHDIR="$HOME/.oh-my-zsh"
 
 TERMINALFONT="$HOME/.local/share/fonts/Droid Sans Mono for Powerline.otf"
-APPLICATIONS="git curl build-essential gnome-terminal zsh libruby2.3"
+APPLICATIONS="git curl build-essential gnome-terminal zsh libruby2.3 pandoc tmux"
 
 printf "Starting installation\n\n"
 sudo -v
@@ -19,51 +21,55 @@ mkdir -p $BACKUPDIR $HOME/.vim $BUNDLEDIR
 
 # Install main applications
 printf "Installing main applications...\n"
-sudo apt-get install -qy $APPLICATIONS > /dev/null
+sudo apt-get install -qy $APPLICATIONS
 
 printf "Configuring environment...\n"
 # Set gnome terminal as default terminal
 sudo update-alternatives --set x-terminal-emulator /usr/bin/gnome-terminal.wrapper	
 
 # Download and install different tools from git
-git config --global core.excludesfile "$HOME/.gitignore" 1>/dev/null
-git submodule update --init --recursive 1>/dev/null
+git config --global core.excludesfile "$HOME/.gitignore"
+git submodule update --init --recursive
 
-if ! type vimpager 1>/dev/null; then
+if ! type vimpager; then
 	cd vim/vimpager
-	sudo make -f Makefile install-deb 1>/dev/null
+	sudo make -f Makefile install-deb
 	cd ../..
 	rm -f vim/vimpager_*
 fi
 
 if [ ! -d "$BUNDLEDIR/Vundle.vim" ]; then
-	git clone https://github.com/VundleVim/Vundle.vim.git "$BUNDLEDIR/Vundle.vim" 1>/dev/null
+	git clone --depth=1 https://github.com/VundleVim/Vundle.vim.git "$BUNDLEDIR/Vundle.vim"
 fi
 
 if [ ! -d "$BUNDLEDIR/YouCompleteMe" ]; then
 	printf "\tInstalling Vim and YouCompleteMe. This could take a while..."
 	# install vim with python support	
-	sudo apt-get remove -qy vim vim-runtime gvim vim-tiny vim-common vim-gui-common 1>/dev/null
-	sudo dpkg -i "$BASEDIR/bin/vim"*.deb 1>/dev/null
-	sudo apt-get install -f 1>/dev/null
-	vim +PluginInstall +qall &>/dev/null
+	sudo apt-get remove -qy vim vim-runtime gvim vim-tiny vim-common vim-gui-common
+	sudo dpkg -i "$BASEDIR/bin/vim"*.deb
+	sudo apt-get install -f
+	vim +PluginInstall +qall
 
 	rm -rf "$BUNDLEDIR/YouCompleteMe"
-	git clone https://github.com/Valloric/YouCompleteMe.git "$BUNDLEDIR/YouCompleteMe/" 1>/dev/null
+	git clone --depth=1 https://github.com/Valloric/YouCompleteMe.git "$BUNDLEDIR/YouCompleteMe/"
 	cd "$BUNDLEDIR/YouCompleteMe"
-	git submodule update --init --recursive 1>/dev/null
-	python install.py --clang-completer &>/dev/null
+	git submodule update --init --recursive
+	python install.py --clang-completer
 	cd $BASEDIR
 fi
 
 if [ ! -d $OHMYZSHDIR ]; then
 	mkdir -p $OHMYZSHDIR
-	git clone git://github.com/robbyrussell/oh-my-zsh.git $OHMYZSHDIR
+	git clone --depth=1 git://github.com/robbyrussell/oh-my-zsh.git $OHMYZSHDIR
 	chsh -s /bin/zsh
 fi
 
 if [ ! -d "$OHMYZSHDIR/custom/plugins/zsh-syntax-highlighting" ]; then
-	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $OHMYZSHDIR/custom/plugins/zsh-syntax-highlighting
+	git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git $OHMYZSHDIR/custom/plugins/zsh-syntax-highlighting
+fi
+
+if [ ! -d "$OHMYZSHDIR/custom/plugins/zsh-autosuggestions" ]; then
+	git clone --depth=1 git://github.com/zsh-users/zsh-autosuggestions $OHMYZSHDIR/custom/plugins/zsh-autosuggestions
 fi
 
 printf "Installing fonts...\n"
@@ -73,8 +79,8 @@ fi
 
 printf "Setting up symlinks...\n"
 
-cp -as "$BASEDIR/vim/colors/" "$HOME/.vim/" &>/dev/null
-cp -as "$BASEDIR/zsh/themes" "$ZSH_CUSTOM" &>/dev/null
+ln -s --interactive $HOME/.vim/colors "$BASEDIR/vim/colors/"
+ln -s --interactive $OHMYZSHDIR/themes "$BASEDIR/zsh/theme"
 
 for file in */*.symlink; do
 	filename="$HOME/.$(basename $file .symlink)"

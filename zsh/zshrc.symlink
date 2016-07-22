@@ -49,7 +49,7 @@ ZSH_THEME="lambda-mod"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git autojump command-not-found common-aliases compleat debian gitfast history web-search sudo zsh-syntax-highlighting)
+plugins=(git autojump command-not-found common-aliases debian gitfast history web-search sudo zsh-autosuggestions zsh-syntax-highlighting)
 
 # User configuration
 
@@ -84,16 +84,4 @@ source $ZSH/oh-my-zsh.sh
 # Use vimpager for manual and less
 export PAGER=vimpager
 alias less=$PAGER
-alias zless=$PAGEr
-
-fancy-ctrl-z () {
-  if [[ $#BUFFER -eq 0 ]]; then
-    BUFFER="fg"
-    zle accept-line
-  else
-    zle push-input
-    zle clear-screen
-  fi
-}
-zle -N fancy-ctrl-z
-bindkey '^Z' fancy-ctrl-z
+alias zless=$PAGER
