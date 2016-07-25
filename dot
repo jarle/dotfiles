@@ -34,6 +34,15 @@ if [ ! -d /usr/share/themes/Arc-Dark ] ; then
 	rm -rf arc-theme
 fi
 
+if [ ! -d /usr/share/icons/Arc ] ; then
+	git clone https://github.com/horst3180/arc-icon-theme --depth 1
+	cd arc-icon-theme
+	./autogen.sh --prefix=/usr
+	sudo make install
+	cd ..
+	rm -rf arc-icon-theme
+fi
+
 # Download and install different tools from git
 git config --global core.excludesfile "$HOME/.gitignore"
 git submodule update --init --recursive
