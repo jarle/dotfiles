@@ -1,6 +1,7 @@
 set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
+let mapleader = "\<Space>"
 noremap <Leader>s :update<CR>
 
 call vundle#begin()		"only place plugins between begin and end
@@ -10,11 +11,16 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-dispatch'
 Plugin 'vim-scripts/indentpython.vim'
-Plugin 'kien/ctrlp.vim'
 Plugin 'rdnetto/YCM-Generator'
+Plugin 'junegunn/fzf.vim'
+Plugin 'junegunn/fzf'
+Plugin 'tyru/open-browser.vim'
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-easytags'
 call vundle#end()
 
 filetype plugin indent on
@@ -43,17 +49,6 @@ set incsearch				"search as characters are entered
 set hlsearch				"highlight search matches
 set virtualedit=onemore		"allow curor at end of line
 
-let python_highlight_all=1
-syntax on
-
-let mapleader = "<\pace>"
-"logical clipboard acces
-vmap <Leader>y "+y
-vmap <Leader>d "+d
-nmap <Leader>p "+p
-nmap <Leader>P "+P
-vmap <Leader>p "+p
-vmap <Leader>P "+P
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 set statusline+=%#warningmsg#
@@ -64,6 +59,23 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+let g:easytags_async = 1
+set tags=./tags;
+let g:easytags_dynamic_files = 2
+
+nnoremap <silent><Leader><Space> :Files<CR>
+nnoremap <silent><Leader>a :Buffers<CR>
+nnoremap <silent><Leader>t :Tags<CR>
+nnoremap <silent><Leader>g :Commits<CR>
+nnoremap <silent><leader>/ :execute 'Ag ' . input('Ag/')<CR>
+
+nnoremap <leader>r :source %<CR>
+noremap <leader>n :set hlsearch! hlsearch?<CR>
+nnoremap <silent> p p`]
+
+nnoremap <silent><leader>b :Dispatch<CR>
+nnoremap <silent><leader>u :UpdateTags!<CR>
 
 autocmd FileType python let b:dispatch = 'python %'
 
