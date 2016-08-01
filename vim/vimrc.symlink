@@ -12,8 +12,9 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-fugitive'
-Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-dispatch'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'scrooloose/syntastic'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'rdnetto/YCM-Generator'
 Plugin 'junegunn/fzf.vim'
@@ -61,7 +62,7 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 let g:easytags_async = 1
-set tags=./tags;
+set tags=./tags,tags
 let g:easytags_dynamic_files = 2
 
 nnoremap <silent><Leader><Space> :Files<CR>
