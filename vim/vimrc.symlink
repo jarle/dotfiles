@@ -2,7 +2,6 @@ set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 let mapleader = "\<Space>"
-noremap <Leader>s :update<CR>
 
 call vundle#begin()		"only place plugins between begin and end
 Plugin 'VundleVim/Vundle.vim'
@@ -14,6 +13,8 @@ Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-vinegar'
+Plugin 'tpope/vim-sleuth'
 Plugin 'scrooloose/syntastic'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'rdnetto/YCM-Generator'
@@ -24,33 +25,21 @@ Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 call vundle#end()
 
-filetype plugin indent on
 filetype on
 runtime! ftplugin/man.vim	"enable reading man-pages from vim
 
 " Visual
 set t_Co=256				"256 colors
-syntax enable				"enable syntax highlighting
-colorscheme hybrid			"set theme
-set background=dark			"nicer this way
-
-set number					"display numbers in sidebar
-set relativenumber			"display relative numbers in sidebar
-set tabstop=4				"number of visual spaces in a <tab>
-set softtabstop=4			"number soft spaces in <tab> when editing
-set shiftwidth=4
-set smartindent				"smart indentation
+syntax enable
+colorscheme hybrid
+set background=dark
+set relativenumber
 set showcmd					"show entered command in bottom bar
 set cursorline				"highlight current line being edited
-set lazyredraw				"only redraw when needed 
-set wildmenu				"show graphical menu for autocomplete
-set lazyredraw				"only redraw screen when needed
+set wildmenu				"show graphical menu for autocompleting commands
 set showmatch				"show matching parenthesis
-set incsearch				"search as characters are entered
-set hlsearch				"highlight search matches
-set virtualedit=onemore		"allow curor at end of line
-
-map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+set incsearch
+set hlsearch
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -72,8 +61,9 @@ nnoremap <silent><Leader>g :Commits<CR>
 nnoremap <silent><leader>/ :execute 'Ag ' . input('Ag/')<CR>
 
 nnoremap <leader>r :source %<CR>
-noremap <leader>n :set hlsearch! hlsearch?<CR>
 nnoremap <silent> p p`]
+noremap <leader>n :set hlsearch! hlsearch?<CR>
+noremap <Leader>s :update<CR>
 
 nnoremap <silent><leader>b :Dispatch<CR>
 nnoremap <silent><leader>u :UpdateTags!<CR>
