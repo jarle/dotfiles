@@ -34,6 +34,7 @@ set t_Co=256				"256 colors
 syntax enable
 colorscheme hybrid
 set background=dark
+set number
 set relativenumber
 set showcmd					"show entered command in bottom bar
 set cursorline				"highlight current line being edited
