@@ -77,8 +77,6 @@ if [ ! -f "$TERMINALFONT" ]; then
 fi
 
 cp -f zsh/themes/lambda-mod.zsh-theme $OHMYZSHDIR/themes/
-mkdir -p $HOME/.vim/colors
-cp -f vim/colors/hybrid.vim $HOME/.vim/colors
 
 printf "Setting up symlinks...\n"
 
