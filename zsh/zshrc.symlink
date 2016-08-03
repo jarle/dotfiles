@@ -87,6 +87,7 @@ alias less=$PAGER
 alias zless=$PAGER
 alias vimrc="vim $HOME/.vimrc"
 alias zshrc="vim $HOME/.zshrc"
+alias dotfiles="cd $HOME/git/dotfiles"
 alias maintain="sudo apt-get update && sudo apt-get upgrade"
 export HISTCONTROL=ignorespace
 
