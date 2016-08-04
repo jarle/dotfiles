@@ -104,3 +104,4 @@ zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
 export ANDROID_EMULATOR_USE_SYSTEM_LIBS=1
+set -o vi
