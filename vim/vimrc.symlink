@@ -1,7 +1,12 @@
+" vim:fdm=marker
 set nocompatible
 filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
 let mapleader = "\<Space>"
+
+" za to toggle folds
+
+" Plugin list {{{
+set rtp+=~/.vim/bundle/Vundle.vim
 
 call vundle#begin()		"only place plugins between begin and end
 Plugin 'VundleVim/Vundle.vim'
@@ -24,26 +29,77 @@ Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 Plugin 'scwood/vim-hybrid'
 call vundle#end()
-
-filetype on
 runtime! ftplugin/man.vim	"enable reading man-pages from vim
+" }}}
 
-" Visual
-set t_Co=256				"256 colors
-syntax enable
-colorscheme hybrid
-set background=dark
+" General {{{
+filetype on
 set number
 set relativenumber
 set showcmd					"show entered command in bottom bar
 set cursorline				"highlight current line being edited
 set wildmenu				"show graphical menu for autocompleting commands
+set wildmode=list:longest
 set showmatch				"show matching parenthesis
+set hidden
+set title                   "don't inherit terminal title
+set scrolloff=3
+set listchars=tab:>-,trail:·,eol:$  "show tabs and trailing whitespace
+set visualbell
+set showmode
+set nowb
+set backspace=indent,eol,start
+set nowrap
+set sidescroll=1
+set scrolloff=8
+set sidescrolloff=15
+set listchars+=precedes:<,extends:>
+set foldmethod=indent
+set foldnestmax=3
+" }}}
+
+" Theme {{{
+set t_Co=256				"256 colors
+syntax enable
+set background=dark
+colorscheme hybrid
+" }}}
+
+" Search {{{
+set ignorecase
+set smartcase               "case-sensitive in case of capital letter
 set incsearch
 set hlsearch
-set autoindent
-set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
+" }}}
 
+" Indentation {{{
+set autoindent
+set smartindent
+set smarttab
+set tabstop=4
+set softtabstop=0
+set expandtab
+set shiftwidth=4
+" }}}
+
+" File handling {{{
+set autoread
+set noswapfile
+set nobackup
+
+if has('persistent_undo') && !isdirectory(expand('~').'/.vim/backups')
+    silent !mkdir -p ~/.vim/backups
+    set undodir=~/.vim/backups
+    set undofile
+endif
+
+"" Store backup files in central spot
+silent !mkdir -p ~/.vim-tmp
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+"}}}
+
+" Plugin conf {{{
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -53,6 +109,11 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+let g:easytags_async=1
+autocmd FileType python let b:dispatch = 'python %'
+" }}}
+
+" Remapping {{{
 nnoremap <silent><Leader><Space> :Files<CR>
 nnoremap <silent><Leader>a :Buffers<CR>
 nnoremap <silent><Leader>t :Tags<CR>
@@ -66,6 +127,6 @@ noremap <Leader>s :update<CR>
 
 nnoremap <silent><leader>b :Dispatch<CR>
 nnoremap <silent><leader>u :UpdateTags!<CR>
+" }}}
 
-autocmd FileType python let b:dispatch = 'python %'
 
