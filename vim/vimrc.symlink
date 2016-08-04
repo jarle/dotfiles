@@ -28,6 +28,7 @@ Plugin 'tyru/open-browser.vim'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 Plugin 'scwood/vim-hybrid'
+Plugin 'majutsushi/tagbar'
 call vundle#end()
 runtime! ftplugin/man.vim	"enable reading man-pages from vim
 " }}}
@@ -45,7 +46,6 @@ set hidden
 set title                   "don't inherit terminal title
 set scrolloff=3
 set listchars=tab:>-,trail:·,eol:$  "show tabs and trailing whitespace
-set visualbell
 set showmode
 set nowb
 set backspace=indent,eol,start
