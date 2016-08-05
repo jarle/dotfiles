@@ -89,6 +89,7 @@ for file in */*.symlink; do
 	ln $file "$filename"
 done
 
+vim +PluginInstall +PluginClean +qall
 git config --global core.excludesfile "$HOME/.gitignore"
 
 printf "Done!\n"
