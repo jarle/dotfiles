@@ -83,10 +83,8 @@ printf "Setting up symlinks...\n"
 for file in */*.symlink; do
 	filename="$HOME/.$(basename $file .symlink)"
 	# create backup if the file already exists
-	if [ -L $filename ]; then
+	if [ -e $filename ]; then
 		mv $filename $BACKUPDIR
-	elif [ -e $filename ]; then
-		rm -f $filename	
 	fi
 	ln -s $BASEDIR/$file $filename
 done
