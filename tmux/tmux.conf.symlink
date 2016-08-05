@@ -50,5 +50,9 @@ bind -n S-Right next-window
 # No delay for escape key press
 set -sg escape-time 0
 
+# Open new windows in same dir as active
+bind '%' split-window -h -c '#{pane_current_path}'  # Split panes horizontal
+bind '"' split-window -v -c '#{pane_current_path}'  # Split panes vertically
+
 # Reload tmux config
 bind r source-file ~/.tmux.conf
