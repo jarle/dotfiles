@@ -19,6 +19,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-vinegar'
+Plugin 'tpope/vim-projectionist'
 Plugin 'scrooloose/syntastic'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'rdnetto/YCM-Generator'
@@ -56,6 +57,9 @@ set sidescrolloff=15
 set listchars+=precedes:<,extends:>
 set foldmethod=indent
 set foldnestmax=3
+set foldlevelstart=1
+set splitright
+set splitbelow
 " }}}
 
 " Theme {{{
@@ -114,11 +118,21 @@ autocmd FileType python let b:dispatch = 'python %'
 " }}}
 
 " Remapping {{{
-nnoremap <silent><Leader><Space> :Files<CR>
+nnoremap <leader><leader> <C-^>
+
+nnoremap <silent><Leader>e :Files<CR>
 nnoremap <silent><Leader>a :Buffers<CR>
 nnoremap <silent><Leader>t :Tags<CR>
 nnoremap <silent><Leader>g :Commits<CR>
 nnoremap <silent><leader>/ :execute 'Ag ' . input('Ag/')<CR>
+nnoremap <silent><leader>o :only<CR>
+nnoremap <Tab> za
+
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
 
 nnoremap <leader>r :source %<CR>
 nnoremap <silent> p p`]

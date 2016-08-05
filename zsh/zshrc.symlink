@@ -89,19 +89,11 @@ alias vimrc="vim $HOME/.vimrc"
 alias zshrc="vim $HOME/.zshrc"
 alias dotfiles="cd $HOME/git/dotfiles"
 alias maintain="sudo apt-get update && sudo apt-get upgrade"
-export HISTCONTROL=ignorespace
 
-fancy-ctrl-z () {
-  if [[ $#BUFFER -eq 0 ]]; then
-    BUFFER=" fg"
-    zle accept-line
-  else
-    zle push-input
-    zle clear-screen
-  fi
-}
-zle -N fancy-ctrl-z
-bindkey '^Z' fancy-ctrl-z
+#git
+alias ga="git add -p"
+alias gc="git commit"
+alias gp="git push"
 
 export ANDROID_EMULATOR_USE_SYSTEM_LIBS=1
 set -o vi
