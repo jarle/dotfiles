@@ -3,3 +3,5 @@
 	name = Jarle Mathiesen
 [push]
 	default = simple
+[core]
+	excludesfile = /home/jarle/.gitignore
