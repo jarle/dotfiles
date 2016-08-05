@@ -85,6 +85,10 @@ source $ZSH/oh-my-zsh.sh
 export PAGER=vimpager
 alias less=$PAGER
 alias zless=$PAGER
+
+export VISUAL=vim
+export EDITOR=$VISUAL
+
 alias vimrc="vim $HOME/.vimrc"
 alias zshrc="vim $HOME/.zshrc"
 alias dotfiles="cd $HOME/git/dotfiles"
@@ -94,6 +98,7 @@ alias maintain="sudo apt-get update && sudo apt-get upgrade"
 alias ga="git add -p"
 alias gc="git commit"
 alias gp="git push"
+alias gl="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 
 export ANDROID_EMULATOR_USE_SYSTEM_LIBS=1
 set -o vi
