@@ -1,11 +1,11 @@
 " vim:fdm=marker
 set nocompatible
-filetype off
 let mapleader = "\<Space>"
 
 " za to toggle folds
 
 " Plugin list {{{
+filetype off            "mandatory for some reason
 set rtp+=~/.vim/bundle/Vundle.vim
 
 call vundle#begin()		"only place plugins between begin and end
@@ -30,6 +30,8 @@ Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 Plugin 'scwood/vim-hybrid'
 Plugin 'majutsushi/tagbar'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
 call vundle#end()
 runtime! ftplugin/man.vim	"enable reading man-pages from vim
 " }}}
@@ -127,6 +129,7 @@ nnoremap <silent><Leader>t :Tags<CR>
 nnoremap <silent><Leader>g :Commits<CR>
 nnoremap <silent><leader>/ :execute 'Ag ' . input('Ag/')<CR>
 nnoremap <silent><leader>o :only<CR>
+nnoremap <silent><leader>q <C-w>q 
 nnoremap <Tab> za
 
 nnoremap <C-h> <C-w>h

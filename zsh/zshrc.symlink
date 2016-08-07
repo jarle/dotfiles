@@ -49,7 +49,7 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(common-aliases history zsh-autosuggestions)
+plugins=(common-aliases history zsh-autosuggestions zsh-syntax-highlighting)
 
 # User configuration
 
@@ -93,6 +93,9 @@ alias vimrc="vim $HOME/.vimrc"
 alias zshrc="vim $HOME/.zshrc"
 alias dotfiles="cd $HOME/git/dotfiles"
 alias maintain="sudo apt-get update && sudo apt-get upgrade"
+
+alias rm="rm -I --verbose" 
+alias la="ls --color --almost-all -l --human-readable --indicator-style=slash --group-directories-first"
 
 #git
 alias ga="git add -p"
