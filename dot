@@ -12,7 +12,7 @@ BACKUPDIR="$BASEDIR/.backup"
 OHMYZSHDIR="$HOME/.oh-my-zsh"
 
 TERMINALFONT="$HOME/.local/share/fonts/Droid Sans Mono for Powerline.otf"
-APPLICATIONS="git curl build-essential gnome-terminal zsh libruby2.3 pandoc tmux cmake vim vim-youcompleteme autoconf automake pkg-config libgtk-3-dev python-dev python3-dev clang exuberant-ctags silversearcher-ag fonts-oxygen"
+APPLICATIONS="git curl build-essential gnome-terminal zsh libruby2.3 pandoc tmux cmake vim vim-youcompleteme autoconf automake pkg-config libgtk-3-dev python-dev python3-dev clang exuberant-ctags silversearcher-ag fonts-oxygen guake"
 
 printf "Starting installation\n\n"
 sudo -v
