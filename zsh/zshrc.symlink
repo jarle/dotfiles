@@ -81,12 +81,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# Use vimpager for manual and less
-export PAGER=vimpager
-alias less=$PAGER
-alias zless=$PAGER
-
-export VISUAL=vim
+export VISUAL=nvim
 export EDITOR=$VISUAL
 
 alias vimrc="vim $HOME/.vimrc"

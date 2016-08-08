@@ -12,7 +12,7 @@ BACKUPDIR="$BASEDIR/.backup"
 OHMYZSHDIR="$HOME/.oh-my-zsh"
 
 TERMINALFONT="$HOME/.local/share/fonts/Droid Sans Mono for Powerline.otf"
-APPLICATIONS="git curl build-essential gnome-terminal zsh libruby2.3 pandoc tmux cmake vim vim-youcompleteme autoconf automake pkg-config libgtk-3-dev python-dev python3-dev clang exuberant-ctags silversearcher-ag fonts-oxygen guake"
+APPLICATIONS="git build-essential zsh libruby2.3 tmux cmake autoconf automake pkg-config libgtk-3-dev python-dev python3-dev clang silversearcher-ag fonts-oxygen guake"
 
 printf "Starting installation\n\n"
 sudo -v
@@ -44,13 +44,31 @@ if [ ! -d /usr/share/icons/Arc ] ; then
 fi
 
 # Download and install different tools from git
-git submodule update --init --recursive
+git submodule update --init --recursive --depth=1
 
-if ! type vimpager; then
-	cd vim/vimpager
-	sudo make -f Makefile install-deb
-	cd ../..
-	rm -f vim/vimpager_*
+if [ ! -f /usr/local/bin/ctags ]; then
+    git clone --depth=1 https://github.com/universal-ctags/ctags.git
+    cd ctags
+    ./autogen.sh
+    ./configure
+    make
+    sudo -H make install
+    cd ..
+    rm -rf ctags
+fi
+
+if [[ -e /usr/bin/vim ]] || [[ ! -e /usr/local/bin/nvim ]]; then
+    sudo apt-get purge -y vim-tiny vim-common vim-gui-common vim-nox #make sure all junk is gone
+    sudo apt-get install libtool-bin
+    git clone --depth=1 https://github.com/neovim/neovim.git
+    cd neovim
+    make
+    sudo -H make install
+    cd ..
+    rm -rf neovim
+    sudo ln -s --force /usr/local/bin/nvim /usr/local/bin/vim
+    mkdir -p $HOME/.config/nvim
+    ln -s --force 
 fi
 
 if [ ! -d "$BUNDLEDIR/Vundle.vim" ]; then
@@ -91,6 +109,9 @@ done
 
 vim +PluginInstall +PluginClean +qall
 git config --global core.excludesfile "$HOME/.gitignore"
+ln -s $HOME/.vimrc $HOME/.config/nvim/init.vim
+
+sudo apt autoremove
 
 printf "Done!\n"
 printf "Old files has been put in $BACKUPDIR\n"

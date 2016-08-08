@@ -11,7 +11,6 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()		"only place plugins between begin and end
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'octol/vim-cpp-enhanced-highlight'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-commentary'
@@ -22,18 +21,12 @@ Plugin 'tpope/vim-vinegar'
 Plugin 'tpope/vim-projectionist'
 Plugin 'scrooloose/syntastic'
 Plugin 'vim-scripts/indentpython.vim'
-Plugin 'rdnetto/YCM-Generator'
 Plugin 'junegunn/fzf.vim'
 Plugin 'junegunn/fzf'
 Plugin 'tyru/open-browser.vim'
 Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-easytags'
 Plugin 'scwood/vim-hybrid'
-Plugin 'majutsushi/tagbar'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
 call vundle#end()
-runtime! ftplugin/man.vim	"enable reading man-pages from vim
 " }}}
 
 " General {{{
