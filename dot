@@ -12,7 +12,7 @@ BACKUPDIR="$BASEDIR/.backup"
 OHMYZSHDIR="$HOME/.oh-my-zsh"
 
 TERMINALFONT="$HOME/.local/share/fonts/Droid Sans Mono for Powerline.otf"
-APPLICATIONS="git curl build-essential zsh libruby2.3 tmux cmake autoconf automake pkg-config libgtk-3-dev python-dev python3-dev clang silversearcher-ag fonts-oxygen guake"
+APPLICATIONS="git curl build-essential zsh libruby2.3 cmake autoconf automake pkg-config libgtk-3-dev python-dev python3-dev clang silversearcher-ag fonts-oxygen guake"
 
 printf "Starting installation\n\n"
 sudo -v
@@ -46,6 +46,19 @@ fi
 # Download and install different tools from git
 git submodule update --init --recursive --depth=1
 
+if [[ $(tmux -V) != 'tmux 2.2' ]]; then
+    sudo apt-get purge tmux
+    sudo apt-get install libevent1-dev ncurses-dev
+    TMUX_DIR=tmux-git
+    git clone --depth=1 https://github.com/tmux/tmux $TMUX_DIR
+    cd $TMUX_DIR
+    sh autogen.sh
+    ./configure
+    sudo make install
+    cd ..
+    rm -rf $TMUX_DIR
+fi;
+
 if [ ! -f /usr/local/bin/ctags ]; then
     git clone --depth=1 https://github.com/universal-ctags/ctags.git
     cd ctags
@@ -57,9 +70,12 @@ if [ ! -f /usr/local/bin/ctags ]; then
     rm -rf ctags
 fi
 
-if [[ ! -e /usr/bin/vim ]] || [[ ! -e /usr/local/bin/nvim ]]; then
+if [[ ! -e /usr/local/bin/vim ]] || [[ ! -e /usr/local/bin/nvim ]]; then
     sudo apt-get purge -y vim-tiny vim-common vim-gui-common vim-nox #make sure all junk is gone
-    sudo apt-get install libtool-bin
+    sudo apt-get install libtool-bin libclang1
+
+    
+    sudo -H pip3 install neovim
     git clone --depth=1 https://github.com/neovim/neovim.git
     cd neovim
     make
@@ -103,9 +119,9 @@ for file in */*.symlink; do
 	ln -s $BASEDIR/$file $filename
 done
 
-vim +PluginInstall +PluginClean +qall
 git config --global core.excludesfile "$HOME/.gitignore"
-ln -s $HOME/.vimrc $HOME/.config/nvim/init.vim
+ln -s --force $HOME/.vimrc $HOME/.config/nvim/init.vim
+vim +PluginInstall +PluginClean +qall
 
 sudo apt autoremove -y
 

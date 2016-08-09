@@ -61,10 +61,10 @@ set foldnestmax=3
 set foldlevelstart=1
 set splitright
 set splitbelow
+set lazyredraw
 " }}}
 
 " Theme {{{
-let $TERM='xterm-256color'
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set background=dark
 colorscheme gruvbox
@@ -99,7 +99,7 @@ if has('persistent_undo') && !isdirectory(expand('~').'/.vim/backups')
     set undofile
 endif
 
-"" Store backup files in central spot
+" Store backup files in central spot
 silent !mkdir -p ~/.vim-tmp
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp

@@ -54,5 +54,8 @@ set -sg escape-time 0
 bind '%' split-window -h -c '#{pane_current_path}'  # Split panes horizontal
 bind '"' split-window -v -c '#{pane_current_path}'  # Split panes vertically
 
+# Good terminal
+set -g default-terminal "rxvt-unicode-256color"
+
 # Reload tmux config
 bind r source-file ~/.tmux.conf
