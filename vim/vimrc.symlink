@@ -11,11 +11,9 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
-Plug 'tpope/vim-projectionist'
-Plug 'octol/vim-cpp-enhanced-highlight'
+"Plug 'tpope/vim-projectionist'
 Plug 'vim-scripts/indentpython.vim'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf'
@@ -24,7 +22,8 @@ Plug 'Shougo/deoplete.nvim'
 Plug 'zchee/deoplete-jedi'
 Plug 'zchee/deoplete-clang'
 Plug 'arakashic/chromatica.nvim'
-
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'neomake/neomake'
 
 
 call plug#end()
@@ -58,6 +57,7 @@ set splitright
 set splitbelow
 set lazyredraw
 set shiftround
+set autowrite
 " }}}
 
 " Theme {{{
@@ -104,10 +104,14 @@ set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
 " Plugin conf {{{
 let g:deoplete#enable_at_startup = 1
+let g:chromatica#libclang_path='/usr/lib/x86_64-linux-gnu/'
 
-augroup filetype_python
-    autocmd FileType python let b:dispatch = 'python3 %'
-augroup end
+let g:neomake_open_list = 2
+let g:neomake_verbose = 3
+let g:neomake_logfile='/home/jarle/log.log'
+
+autocmd FileType python: :set makeprg='python %'
+
 " }}}
 
 " Remappings {{{
@@ -115,8 +119,10 @@ nnoremap <leader>w :vsplit $MYVIMRC<cr>
 nnoremap <leader>r :source %<CR>
 
 nnoremap <leader><leader> <C-^>
-nnoremap H 0
-nnoremap L $
+nnoremap H <c-w>h
+nnoremap L <c-w>l
+nnoremap K <c-w>k
+nnoremap J <c-w>j
 
 nnoremap <silent><Leader>e :Files<CR>
 nnoremap <silent><Leader>a :Buffers<CR>
@@ -125,6 +131,7 @@ nnoremap <silent><Leader>g :Commits<CR>
 nnoremap <silent><leader>/ :execute 'Ag ' . input('Ag/')<CR>
 nnoremap <silent><leader>o :only<CR>
 nnoremap <silent><leader>q <C-w>q 
+nnoremap <silent><leader>b :Neomake! <CR>
 nnoremap <Tab> za
 
 
@@ -141,10 +148,8 @@ nnoremap <C-l> <C-w>l
 
 nnoremap <silent> p p`]
 noremap <leader>n :set hlsearch!<CR>
-noremap <Leader>s :update<CR>
+noremap <silent><Leader>s :update<CR>
 
-nnoremap <silent><leader>b :Dispatch<CR>
-nnoremap <silent><leader>u :UpdateTags!<CR>
 " }}}
 
 
