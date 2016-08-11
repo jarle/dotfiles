@@ -1,5 +1,4 @@
 " vim:fdm=marker
-set nocompatible
 let mapleader = "\<Space>"
 
 " za to toggle folds
@@ -25,7 +24,6 @@ Plug 'arakashic/chromatica.nvim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'neomake/neomake'
 
-
 call plug#end()
 " }}}
 
@@ -35,24 +33,17 @@ set number
 set relativenumber
 set showcmd					"show entered command in bottom bar
 set cursorline				"highlight current line being edited
-set wildmenu				"show graphical menu for autocompleting commands
-set wildmode=list:longest
 set showmatch				"show matching parenthesis
 set hidden
 set title                   "don't inherit terminal title
 set scrolloff=3
-set listchars=tab:>-,trail:·,eol:$  "show tabs and trailing whitespace
 set showmode
-set nowb
-set backspace=indent,eol,start
 set nowrap
 set sidescroll=1
 set scrolloff=8
 set sidescrolloff=15
-set listchars+=precedes:<,extends:>
 set foldmethod=indent
 set foldnestmax=3
-set foldlevelstart=1
 set splitright
 set splitbelow
 set lazyredraw
@@ -65,20 +56,16 @@ let $TERM='xterm-256color'
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set background=dark
 colorscheme gruvbox
-"highlight Comment cterm=italic
+highlight Comment gui=italic,bold
 " }}}
 
 " Search {{{
 set ignorecase
 set smartcase               "case-sensitive in case of capital letter
-set incsearch
-set hlsearch
 " }}}
 
 " Indentation {{{
-set autoindent
 set smartindent
-set smarttab
 set tabstop=4
 set softtabstop=0
 set expandtab
@@ -86,7 +73,6 @@ set shiftwidth=4
 " }}}
 
 " File handling {{{
-set autoread
 set noswapfile
 set nobackup
 
@@ -116,24 +102,17 @@ nnoremap <leader>w :vsplit $MYVIMRC<cr>
 nnoremap <leader>r :source %<CR>
 
 nnoremap <leader><leader> <C-^>
-nnoremap H <c-w>h
-nnoremap L <c-w>l
-nnoremap K <c-w>k
-nnoremap J <c-w>j
 
 nnoremap <silent><Leader>e :Files<CR>
 nnoremap <silent><Leader>a :Buffers<CR>
-nnoremap <silent><Leader>t :Tags<CR>
 nnoremap <silent><Leader>g :Commits<CR>
+nnoremap <silent><Leader>t :terminal<CR>
 nnoremap <silent><leader>/ :execute 'Ag ' . input('Ag/')<CR>
 nnoremap <silent><leader>o :only<CR>
 nnoremap <silent><leader>q <C-w>q 
 nnoremap <silent><leader>b :Neomake! <CR>
 nnoremap <Tab> za
 
-
-nnoremap - ddp
-nnoremap _ ddkP
 inoremap <c-U> <esc>gUawa
 noremap <c-U> gUaw
 
@@ -141,7 +120,6 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-
 
 nnoremap <silent> p p`]
 noremap <leader>n :set hlsearch!<CR>
