@@ -107,10 +107,7 @@ let g:deoplete#enable_at_startup = 1
 let g:chromatica#libclang_path='/usr/lib/x86_64-linux-gnu/'
 
 let g:neomake_open_list = 2
-let g:neomake_verbose = 3
-let g:neomake_logfile='/home/jarle/log.log'
-
-autocmd FileType python: :set makeprg='python %'
+autocmd BufWritePost * Neomake
 
 " }}}
 
