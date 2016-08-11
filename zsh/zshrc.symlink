@@ -91,6 +91,7 @@ alias maintain="sudo apt-get update && sudo apt-get upgrade"
 
 alias rm="rm -I --verbose" 
 alias la="ls --color --almost-all -l --human-readable --indicator-style=slash --group-directories-first"
+alias pt="ptpython"
 
 #git
 alias ga="git add -p"

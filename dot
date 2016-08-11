@@ -22,6 +22,7 @@ mkdir -p $BACKUPDIR $HOME/.vim $BUNDLEDIR
 # Install main applications
 printf "Installing main applications...\n"
 sudo apt-get install -qy $APPLICATIONS
+sudo -H pip install ptpython
 
 printf "Configuring environment...\n"
 

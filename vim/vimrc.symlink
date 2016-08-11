@@ -7,8 +7,6 @@ let mapleader = "\<Space>"
 " Plugin list {{{
 
 call plug#begin('~/.vim/plugged')		"only place plugins between begin and end
-Plug 'VundleVim/Vundle.vim'
-Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
@@ -17,19 +15,16 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-projectionist'
-Plug 'scrooloose/syntastic'
+Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'vim-scripts/indentpython.vim'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf'
-Plug 'tyru/open-browser.vim'
-Plug 'xolox/vim-misc'
 Plug 'morhetz/gruvbox'
 Plug 'Shougo/deoplete.nvim'
 Plug 'zchee/deoplete-jedi'
 Plug 'zchee/deoplete-clang'
 Plug 'arakashic/chromatica.nvim'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+
 
 
 call plug#end()
@@ -65,10 +60,11 @@ set lazyredraw
 " }}}
 
 " Theme {{{
+let $TERM='xterm-256color'
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set background=dark
 colorscheme gruvbox
-highlight Comment cterm=italic
+"highlight Comment cterm=italic
 " }}}
 
 " Search {{{
