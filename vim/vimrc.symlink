@@ -57,6 +57,7 @@ set foldlevelstart=1
 set splitright
 set splitbelow
 set lazyredraw
+set shiftround
 " }}}
 
 " Theme {{{
@@ -103,11 +104,19 @@ set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
 " Plugin conf {{{
 let g:deoplete#enable_at_startup = 1
-autocmd FileType python let b:dispatch = 'python %'
+
+augroup filetype_python
+    autocmd FileType python let b:dispatch = 'python3 %'
+augroup end
 " }}}
 
-" Remapping {{{
+" Remappings {{{
+nnoremap <leader>w :vsplit $MYVIMRC<cr>
+nnoremap <leader>r :source %<CR>
+
 nnoremap <leader><leader> <C-^>
+nnoremap H 0
+nnoremap L $
 
 nnoremap <silent><Leader>e :Files<CR>
 nnoremap <silent><Leader>a :Buffers<CR>
@@ -118,15 +127,20 @@ nnoremap <silent><leader>o :only<CR>
 nnoremap <silent><leader>q <C-w>q 
 nnoremap <Tab> za
 
+
+nnoremap - ddp
+nnoremap _ ddkP
+inoremap <c-U> <esc>gUawa
+noremap <c-U> gUaw
+
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 
-nnoremap <leader>r :source %<CR>
 nnoremap <silent> p p`]
-noremap <leader>n :set hlsearch! hlsearch?<CR>
+noremap <leader>n :set hlsearch!<CR>
 noremap <Leader>s :update<CR>
 
 nnoremap <silent><leader>b :Dispatch<CR>
