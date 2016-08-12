@@ -53,8 +53,8 @@ set autowrite
 " }}}
 
 " Theme {{{
-let $TERM='xterm-256color'
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+let $TERM='screen-256color'
+set termguicolors
 set background=dark
 colorscheme hybrid
 highlight Comment gui=italic,bold
@@ -111,7 +111,7 @@ nnoremap <silent><leader>/ :execute 'Ag ' . input('Ag/')<CR>
 nnoremap <silent><leader>o :only<CR>
 nnoremap <silent><leader>q <C-w>q 
 nnoremap <silent><leader>b :Neomake! <CR>
-nnoremap <Tab> za
+nnoremap <Tab> zA
 
 inoremap <c-U> <esc>gUawa
 noremap <c-U> gUaw
