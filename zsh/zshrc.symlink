@@ -101,4 +101,6 @@ alias gp="git push"
 alias gl="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 
 export ANDROID_EMULATOR_USE_SYSTEM_LIBS=1
+export FZF_DEFAULT_COMMAND='ag -g ""'
 set -o vi
+

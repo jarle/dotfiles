@@ -22,6 +22,7 @@ Plug 'zchee/deoplete-jedi'
 Plug 'zchee/deoplete-clang'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'neomake/neomake'
+Plug 'sheerun/vim-polyglot'
 
 Plug 'Mattias-/base16-vim'
 Plug 'scwood/vim-hybrid'
@@ -56,7 +57,7 @@ set autowrite
 let $TERM='screen-256color'
 set termguicolors
 set background=dark
-colorscheme hybrid
+colorscheme base16-ocean
 highlight Comment gui=italic,bold
 " }}}
 
@@ -94,6 +95,7 @@ let g:deoplete#enable_at_startup = 1
 
 let g:neomake_open_list = 2
 autocmd BufWritePost * Neomake
+command! -bang -nargs=* Agu call fzf#vim#ag(<q-args>, '--skip-vcs-ignores', {'down': '~40%'})
 
 " }}}
 
@@ -106,12 +108,20 @@ nnoremap <leader><leader> <C-^>
 nnoremap <silent><Leader>e :Files<CR>
 nnoremap <silent><Leader>a :Buffers<CR>
 nnoremap <silent><Leader>g :Commits<CR>
-nnoremap <silent><Leader>t :terminal<CR>
+nnoremap <silent><Leader>t :vsplit term://tmux<CR>
 nnoremap <silent><leader>/ :execute 'Ag ' . input('Ag/')<CR>
 nnoremap <silent><leader>o :only<CR>
 nnoremap <silent><leader>q <C-w>q 
 nnoremap <silent><leader>b :Neomake! <CR>
 nnoremap <Tab> zA
+
+" sane copy/pasting to system clipboard {{{
+nnoremap <silent> p p`]
+nnoremap <silent> P P`]
+inoremap <silent> <c-v> <esc> "+pi
+nnoremap <silent> <leader> p "+p
+nnoremap <silent> <leader> P "+P
+" }}}
 
 inoremap <c-U> <esc>gUawa
 noremap <c-U> gUaw
@@ -121,7 +131,11 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-nnoremap <silent> p p`]
+tnoremap <C-h> <C-\><C-n>h
+tnoremap <C-j> <C-\><C-n>j
+tnoremap <C-k> <C-\><C-n>k
+tnoremap <C-l> <C-\><C-n>l
+
 noremap <leader>n :set hlsearch!<CR>
 noremap <silent><Leader>s :update<CR>
 
