@@ -7,122 +7,26 @@ cd "$(dirname "$0")"
 
 # Useful variables
 BASEDIR="$(pwd)"
-BUNDLEDIR="$HOME/.vim/bundle"
 BACKUPDIR="$BASEDIR/.backup"
-OHMYZSHDIR="$HOME/.oh-my-zsh"
 
-TERMINALFONT="$HOME/.local/share/fonts/Droid Sans Mono for Powerline.otf"
-APPLICATIONS="git curl build-essential zsh libruby2.3 cmake autoconf \
-    automake pkg-config libgtk-3-dev python-dev python3-dev \
-    clang silversearcher-ag fonts-oxygen guake xclip"
+MAIN_APPLICATIONS="git tmux curl base-devel zsh cmake autoconf python-pip clang xclip fish cmus xbindkeys"
+YAOURT_APPLICATIONS="silver-searcher-git universal-ctags-git neovim-qt-git"
 
-printf "Starting installation\n\n"
 sudo -v
 rm -rf $BACKUPDIR
-mkdir -p $BACKUPDIR $HOME/.vim $BUNDLEDIR
+mkdir -p $BACKUPDIR
+if [[ ! "$SHELL" == "/usr/bin/fish" ]]; then
+    echo nofish
+    chsh -s /usr/bin/fish
+fi
 
 # Install main applications
-printf "Installing main applications...\n"
-sudo apt-get install -qy $APPLICATIONS
-sudo -H pip install ptpython
+sudo pacman -S --noconfirm --needed $MAIN_APPLICATIONS
+yaourt -S --noconfirm --needed $YAOURT_APPLICATIONS
+sudo -H pip install ptpython neovim
 
-printf "Configuring environment...\n"
-
-if [ ! -d /usr/share/themes/Arc-Dark ] ; then
-	git clone https://github.com/horst3180/arc-theme --depth 1
-	cd arc-theme
-	./autogen.sh --prefix=/usr
-	sudo make install
-	cd ..
-	rm -rf arc-theme
-fi
-
-if [ ! -d /usr/share/icons/Arc ] ; then
-	git clone https://github.com/horst3180/arc-icon-theme --depth 1
-	cd arc-icon-theme
-	./autogen.sh --prefix=/usr
-	sudo make install
-	cd ..
-	rm -rf arc-icon-theme
-fi
-
-# Download and install different tools from git
-git submodule update --init --recursive --depth=1
-
-if [[ $(tmux -V) != 'tmux 2.3' ]]; then
-    sudo apt-get purge tmux
-    sudo apt-get install libevent1-dev ncurses-dev
-    TMUX_DIR=tmux-git
-    git clone --depth=1 https://github.com/tmux/tmux $TMUX_DIR
-    cd $TMUX_DIR
-    sh autogen.sh
-    ./configure
-    sudo make install
-    cd ..
-    rm -rf $TMUX_DIR
-fi;
-
-if [ ! -f /usr/local/bin/ctags ]; then
-    git clone --depth=1 https://github.com/universal-ctags/ctags.git
-    cd ctags
-    ./autogen.sh
-    ./configure
-    make
-    sudo -H make install
-    cd ..
-    rm -rf ctags
-fi
-
-if [[ ! -e /usr/local/bin/vim ]] || [[ ! -e /usr/local/bin/nvim ]]; then
-    sudo apt-get purge -y vim-tiny vim-common vim-gui-common vim-nox #make sure all junk is gone
-    sudo apt-get install libtool-bin libclang1
-
-    
-    sudo -H pip3 install neovim
-    git clone --depth=1 https://github.com/neovim/neovim.git
-    cd neovim
-    make
-    sudo -H make install
-    cd ..
-    rm -rf neovim
-    sudo ln -s --force /usr/local/bin/nvim /usr/local/bin/vim
-    curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-fi
-
-if [[ ! -e /usr/local/bin/nvim-qt ]]; then
-    git clone --depth=1 https://github.com/equalsraf/neovim-qt.git
-    cd neovim-qt
-    cmake .
-    sudo make install
-    cd ..
-    rm -rf neovim-qt
-fi
-
-if [ ! -d $OHMYZSHDIR ]; then
-	mkdir -p $OHMYZSHDIR
-	git clone --depth=1 git://github.com/robbyrussell/oh-my-zsh.git $OHMYZSHDIR
-	chsh -s /bin/zsh
-fi
-
-if [ ! -d "$OHMYZSHDIR/custom/plugins/zsh-syntax-highlighting" ]; then
-	git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git $OHMYZSHDIR/custom/plugins/zsh-syntax-highlighting
-fi
-
-if [ ! -d "$OHMYZSHDIR/custom/plugins/zsh-autosuggestions" ]; then
-	git clone --depth=1 git://github.com/zsh-users/zsh-autosuggestions $OHMYZSHDIR/custom/plugins/zsh-autosuggestions
-fi
-
-printf "Installing fonts...\n"
-if [ ! -f "$TERMINALFONT" ]; then
-	source fonts/install.sh 
-fi
-
-cp -f zsh/themes/lambda-mod.zsh-theme $OHMYZSHDIR/themes/
-
-printf "Setting up symlinks...\n"
-
-for file in */*.symlink; do
+# Set up symlinks
+for file in $(find . -name '*.symlink'); do
 	filename="$HOME/.$(basename $file .symlink)"
 	# create backup if the file already exists
 	if [ -e $filename ]; then
@@ -132,10 +36,14 @@ for file in */*.symlink; do
 done
 
 git config --global core.excludesfile "$HOME/.gitignore"
-ln -s --force $HOME/.vimrc $HOME/.config/nvim/init.vim
-vim +PlugInstall +PlugClean +qall
+mkdir -p $HOME/.config/nvim/autoload
+if [ ! -f ~/.config/nvim/autoload/plug.vim ]; then
+	curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
+		    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+fi
 
-sudo apt autoremove -y
+ln -s --force $HOME/.vimrc $HOME/.config/nvim/init.vim
+nvim +PlugInstall +PlugClean +qall
 
 printf "Done!\n"
 printf "Old files has been put in $BACKUPDIR\n"
