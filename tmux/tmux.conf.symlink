@@ -59,11 +59,5 @@ unbind C-b
 set -g prefix C-Space
 bind Space send-prefix
 
-# Better pane navigation
-bind j split-window -v
-bind C-j split-window -v
-bind l split-window -h
-bind C-l split-window -h
-
 # Reload tmux config
 bind r source-file ~/.tmux.conf
