@@ -1,9 +1,14 @@
 [user]
-	email = jarle.mathiesen@gmail.com
-	name = Jarle Mathiesen
+    email = jarle.mathiesen@gmail.com
+    name = Jarle Mathiesen
 [push]
-	default = simple
+    default = simple
 [core]
-	excludesfile = /home/jarle/.gitignore
+    excludesfile = /home/jarle/.gitignore
 [alias]
-	a = add -p
+    a = add -p
+    c = commit -p
+    p = push -p
+    r = reset -p
+    s = stash -p
+    l = log -p
