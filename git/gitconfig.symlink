@@ -6,10 +6,8 @@
 [core]
     excludesfile = /home/jarle/.gitignore
 [alias]
-    a = add -p
-    c = commit -p
-    ch = checkout -p
-    p = push -p
-    r = reset -p
-    s = stash -p
-    l = log -p
+    a = add --patch
+    c = checkout --patch
+    r = reset --patch
+    s = stash --patch
+    l = log --patch
