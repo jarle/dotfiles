@@ -17,7 +17,11 @@ Plug 'vim-scripts/indentpython.vim'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf'
 Plug 'morhetz/gruvbox'
+Plug 'Shougo/context_filetype.vim'
 Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
+Plug 'honza/vim-snippets'
 Plug 'zchee/deoplete-jedi'
 Plug 'zchee/deoplete-clang'
 Plug 'ludovicchabant/vim-gutentags'
@@ -81,10 +85,26 @@ set nobackup
 
 " Plugin conf {{{
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_smart_case = 1
+let g:neosnippet#enable_snipmate_compatibility = 1
 
 let g:neomake_open_list = 2
 autocmd BufWritePost * Neomake
 command! -bang -nargs=* Agu call fzf#vim#ag(<q-args>, '--skip-vcs-ignores', {'down': '~40%'})
+
+" Snippets and deoplete voodoo {{{
+    let g:deoplete#ignore_sources = {}
+    let g:deoplete#ignore_sources._ = ["neosnippet"]
+
+    inoremap <C-k> <Plug>(neosnippet_expand_or_jump)
+
+    " If insert mode+popup menu, use tab and shift tab for manouvering.
+    " If insert mode+no popup, use tab for expanding snippets
+    inoremap <expr><TAB> pumvisible() ? "\<C-n>" : neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+    " Close popup on CR
+    inoremap <expr><CR> pumvisible() ? deoplete#mappings#close_popup() : "\<CR>"
+" }}}
 
 " }}}
 
@@ -103,17 +123,6 @@ nnoremap <silent><leader>o :only<CR>
 nnoremap <silent><leader>q <C-w>q 
 nnoremap <silent><leader>b :Neomake! <CR>
 nnoremap <Tab> zA
-
-" sane copy/pasting to system clipboard {{{
-nnoremap <silent> p p`]
-nnoremap <silent> P P`]
-inoremap <silent> <c-v> <esc> "+pi
-nnoremap <silent> <leader> p "+p
-nnoremap <silent> <leader> P "+P
-" }}}
-
-inoremap <c-U> <esc>gUawa
-noremap <c-U> gUaw
 
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
