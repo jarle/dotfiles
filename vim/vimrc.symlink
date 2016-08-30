@@ -51,6 +51,7 @@ set splitbelow
 set lazyredraw
 set shiftround
 set autowrite
+set clipboard=unnamedplus   "use x clipboard like sane people
 " }}}
 
 " Theme {{{
@@ -77,18 +78,6 @@ set shiftwidth=4
 " File handling {{{
 set noswapfile
 set nobackup
-
-if has('persistent_undo') && !isdirectory(expand('~').'/.vim/backups')
-    silent !mkdir -p ~/.vim/backups
-    set undodir=~/.vim/backups
-    set undofile
-endif
-
-" Store backup files in central spot
-silent !mkdir -p ~/.vim-tmp
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-"}}}
 
 " Plugin conf {{{
 let g:deoplete#enable_at_startup = 1

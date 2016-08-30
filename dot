@@ -9,21 +9,21 @@ cd "$(dirname "$0")"
 BASEDIR="$(pwd)"
 BACKUPDIR="$BASEDIR/.backup"
 
-MAIN_APPLICATIONS="git tmux curl base-devel zsh cmake autoconf python-pip clang xclip fish cmus xbindkeys"
-YAOURT_APPLICATIONS="silver-searcher-git universal-ctags-git neovim-qt-git fontconfig-infinality fontconfig-infinality"
+MAIN_APPLICATIONS="git tmux curl base-devel zsh cmake autoconf python-pip clang xclip fish cmus xbindkeys gtk-theme-arc arc-icon-theme"
+YAOURT_APPLICATIONS="silver-searcher-git universal-ctags-git neovim-qt-git"
 
 sudo -v
 rm -rf $BACKUPDIR
 mkdir -p $BACKUPDIR
-if [[ ! "$SHELL" == "/usr/bin/fish" ]]; then
-    echo nofish
-    chsh -s /usr/bin/fish
-fi
 
 # Install main applications
 sudo pacman -S --noconfirm --needed $MAIN_APPLICATIONS
 yaourt -S --noconfirm --needed $YAOURT_APPLICATIONS
 sudo -H pip install ptpython neovim
+
+if [[ ! "$SHELL" == "/usr/bin/fish" ]]; then
+    chsh -s /usr/bin/fish
+fi
 
 # Set up symlinks
 for file in $(find . -name '*.symlink'); do
