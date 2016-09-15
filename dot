@@ -10,7 +10,7 @@ BASEDIR="$(pwd)"
 BACKUPDIR="$BASEDIR/.backup"
 
 MAIN_APPLICATIONS="git tmux curl base-devel zsh cmake autoconf python-pip clang xclip fish cmus xbindkeys gtk-theme-arc arc-icon-theme"
-YAOURT_APPLICATIONS="silver-searcher-git universal-ctags-git neovim-qt-git"
+YAOURT_APPLICATIONS="silver-searcher-git universal-ctags-git neovim-qt-git otf-hack"
 
 sudo -v
 rm -rf $BACKUPDIR
