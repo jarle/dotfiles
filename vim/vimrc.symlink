@@ -15,7 +15,6 @@ Plug 'tpope/vim-vinegar'
 "Plug 'tpope/vim-projectionist'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf'
-Plug 'morhetz/gruvbox'
 Plug 'Shougo/context_filetype.vim'
 Plug 'Shougo/deoplete.nvim'
 Plug 'Shougo/neosnippet.vim'
@@ -25,7 +24,9 @@ Plug 'zchee/deoplete-clang'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'neomake/neomake'
 Plug 'sheerun/vim-polyglot'
+Plug 'wincent/scalpel'
 
+Plug 'morhetz/gruvbox'
 Plug 'Mattias-/base16-vim'
 Plug 'scwood/vim-hybrid'
 call plug#end()
@@ -145,7 +146,7 @@ if has('nvim')
 endif
 
 noremap <leader>n :set hlsearch!<CR>
-noremap <silent><Leader>s :update<CR>
+noremap <silent><Leader>E <Plug>(Scalpel)
 
 " Remappings end }}}
 
