@@ -13,7 +13,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 "Plug 'tpope/vim-projectionist'
-Plug 'vim-scripts/indentpython.vim'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf'
 Plug 'morhetz/gruvbox'
@@ -21,14 +20,11 @@ Plug 'Shougo/context_filetype.vim'
 Plug 'Shougo/deoplete.nvim'
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
-"Plug 'honza/vim-snippets'
 Plug 'zchee/deoplete-jedi'
 Plug 'zchee/deoplete-clang'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'neomake/neomake'
 Plug 'sheerun/vim-polyglot'
-"Plug 'lervag/vimtex'
-Plug 'Konfekt/FastFold'
 
 Plug 'Mattias-/base16-vim'
 Plug 'scwood/vim-hybrid'
@@ -94,7 +90,6 @@ let g:deoplete#enable_smart_case = 1
 
 let g:neomake_open_list = 2
 autocmd BufWritePost * Neomake
-command! -bang -nargs=* Agu call fzf#vim#ag(<q-args>, '--skip-vcs-ignores', {'down': '~40%'})
 
 " Snippets and deoplete voodoo {{{
     inoremap <C-k> <Plug>(neosnippet_expand_or_jump)
@@ -113,12 +108,26 @@ command! -bang -nargs=* Agu call fzf#vim#ag(<q-args>, '--skip-vcs-ignores', {'do
 nnoremap <leader>w :vsplit $MYVIMRC<cr>
 nnoremap <leader>r :source %<CR>
 
+" Jump between previous and current buffer
 nnoremap <leader><leader> <C-^>
 
-nnoremap <silent><Leader>e :Files<CR>
+function! ShowFiles()
+    if !execute("GFiles")
+        execute("Files")
+    endif
+endfunction
+
+nnoremap <silent><Leader>e :call ShowFiles()<CR>
+
 nnoremap <silent><Leader>a :Buffers<CR>
 nnoremap <silent><Leader>t :vsplit term://tmux<CR>
+
 nnoremap <silent><leader>o :only<CR>
+nnoremap <silent><leader>h <C-w>H
+nnoremap <silent><leader>j <C-w>J
+nnoremap <silent><leader>k <C-w>K
+nnoremap <silent><leader>l <C-w>L
+
 nnoremap <silent><leader>q <C-w>q 
 nnoremap <silent><leader>b :Neomake! <CR>
 nnoremap <Tab> zA
