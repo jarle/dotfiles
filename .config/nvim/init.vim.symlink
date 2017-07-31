@@ -1,36 +1,34 @@
 " vim:fdm=marker
 
-if has('nvim') "let vanilla vim do its own thing
 let mapleader = "\<Space>"
 
 " Plugin list {{{
 
 call plug#begin('~/.vim/plugged')		"only place plugins between begin and end
-"essential
-Plug 'w0rp/ale'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-vinegar'
-"Plug 'tpope/vim-projectionist'
-Plug 'junegunn/fzf.vim'
-Plug 'junegunn/fzf'
-Plug 'Shougo/context_filetype.vim'
-Plug 'Shougo/deoplete.nvim'
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
-Plug 'zchee/deoplete-jedi'
-Plug 'zchee/deoplete-clang'
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'sheerun/vim-polyglot'
-Plug 'wincent/scalpel'
-Plug 'terryma/vim-smooth-scroll'
+    "essential
+    Plug 'w0rp/ale'
+    Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-repeat'
+    Plug 'tpope/vim-commentary'
+    Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-unimpaired'
+    Plug 'tpope/vim-vinegar'
+    "Plug 'tpope/vim-projectionist'
+    Plug 'junegunn/fzf.vim'
+    Plug 'junegunn/fzf'
+    Plug 'Shougo/context_filetype.vim'
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'Shougo/neosnippet.vim'
+    Plug 'Shougo/neosnippet-snippets'
+    Plug 'zchee/deoplete-jedi'
+    Plug 'zchee/deoplete-clang'
+    Plug 'ludovicchabant/vim-gutentags'
+    Plug 'sheerun/vim-polyglot'
+    Plug 'wincent/scalpel'
 
-Plug 'morhetz/gruvbox'
-Plug 'Mattias-/base16-vim'
-Plug 'scwood/vim-hybrid'
+    Plug 'morhetz/gruvbox'
+    Plug 'Mattias-/base16-vim'
+    Plug 'scwood/vim-hybrid'
 call plug#end()
 " Plugin end }}}
 
@@ -38,9 +36,9 @@ call plug#end()
 filetype on
 set number
 set relativenumber
-set showcmd					"show entered command in bottom bar
-set cursorline				"highlight current line being edited
-set showmatch				"show matching parenthesis
+set showcmd                 "show entered command in bottom bar
+set cursorline              "highlight current line being edited
+set showmatch               "show matching parenthesis
 set hidden
 set title                   "don't inherit terminal title
 set scrolloff=3
@@ -52,11 +50,12 @@ set splitright
 set splitbelow
 set lazyredraw
 set shiftround
-set autowrite
-set clipboard=unnamedplus   "use x clipboard like sane people
+set autowriteall
+set clipboard+=unnamedplus   "use x clipboard like sane people
 set wrap
-set textwidth=79
-set wm=2 "hard wrap with newlines
+set list                     "show whitespace
+set scroll=7
+set shada="'50,<1000,s100,:0,n~/.local/share/nvim/shada"
 " General end }}}
 
 " Theme {{{
@@ -87,20 +86,8 @@ set nobackup
 
 " Plugin conf {{{
 
-
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
-
-" Snippets and deoplete voodoo {{{
-    inoremap <C-k> <Plug>(neosnippet_expand_or_jump)
-
-    " If insert mode+popup menu, use tab and shift tab for manouvering.
-    " If insert mode+no popup, use tab for expanding snippets
-    inoremap <expr><TAB> pumvisible() ? "\<C-n>" : neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
-    " Close popup on CR
-    " inoremap <expr><CR> pumvisible() ? deoplete#mappings#close_popup() : "\<CR>"
-" }}}
 
 " Plugin conf end }}}
 
@@ -120,20 +107,12 @@ endfunction
 nnoremap <silent><Leader>e :call ShowFiles()<CR>
 
 nnoremap <silent><Leader>a :Buffers<CR>
-nnoremap <silent><Leader>t :vsplit term://tmux<CR>
 
 nnoremap <silent><leader>o :only<CR>
 nnoremap <silent><leader>h <C-w>H
 nnoremap <silent><leader>j <C-w>J
 nnoremap <silent><leader>k <C-w>K
 nnoremap <silent><leader>l <C-w>L
-
-" smooth scrolling {{{
-noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
-noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
-noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
-noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
-" }}}
 
 nnoremap <silent><leader>q <C-w>q 
 nnoremap <Tab> zA
@@ -155,5 +134,3 @@ noremap <silent><Leader>E <Plug>(Scalpel)
 
 let g:python2_host_prog = '/usr/local/bin/python'
 let g:python3_host_prog = '/usr/local/bin/python3'
-
-endif

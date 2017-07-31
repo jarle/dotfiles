@@ -24,19 +24,19 @@ for raw_filepath in $(find . -name '*.symlink'); do
     filename="$HOME/$filepath"
     sourcepath="$BASEDIR/$raw_filepath"
 
-	# create backup if the file already exists
+    # create backup if the file already exists
     if [[ -e $filename ]] && ! [[ $(diff --brief $raw_filepath $filename) ]]; then
-		mv -v $filename $BACKUPDIR
-	fi
+    mv -v $filename $BACKUPDIR
+    fi
 
     mkdir -p $(dirname $filename)
-	ln -Fs $sourcepath $filename
+    ln -Fs $sourcepath $filename
 done
 
 mkdir -p $HOME/.config/nvim/autoload
 if [ ! -f ~/.config/nvim/autoload/plug.vim ]; then
-	curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
-		    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
 nvim +PlugClean +PlugInstall +PlugUpdate +qall
