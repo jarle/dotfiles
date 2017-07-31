@@ -1,0 +1,3 @@
+function less --description="less with colors"
+    command less --RAW-CONTROL-CHARS
+end

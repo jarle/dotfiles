@@ -1,0 +1,3 @@
+function ls --description='List almost all files'
+    command ls -AG $argv
+end

@@ -1,0 +1,28 @@
+[user]
+    email = jarle.mathiesen@gmail.com
+    name = Jarle Mathiesen
+
+[push]
+    default = simple
+
+[core]
+    excludesfile = /Users/jarlemathiesen/.gitignore
+
+[alias]
+    a = add --patch
+    c = checkout --patch
+    r = reset --patch
+    s = status --short
+
+    # View abbreviated SHA, description, and history graph of the latest 20 commits
+    l = log --oneline --max-count=20
+    ll = log --max-count=20 --pretty=format:'%Cblue%h%Creset %an %Cgreen%s%Creset (%cr)'
+
+[help]
+    # correct and execute mistyped commands
+    autocorrect = 1
+
+[merge]
+    # summary of merge in commit message
+    log=true
+

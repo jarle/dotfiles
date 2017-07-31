@@ -2,6 +2,8 @@
 
 set -e
 
+clear
+
 # Change to dir of script
 cd "$(dirname "$0")"
 
@@ -9,41 +11,35 @@ cd "$(dirname "$0")"
 BASEDIR="$(pwd)"
 BACKUPDIR="$BASEDIR/.backup"
 
-MAIN_APPLICATIONS="git tmux curl base-devel zsh cmake autoconf python-pip clang xclip fish cmus xbindkeys gtk-theme-arc arc-icon-theme"
-YAOURT_APPLICATIONS="silver-searcher-git universal-ctags-git neovim-qt-git otf-hack"
-
-sudo -v
 rm -rf $BACKUPDIR
 mkdir -p $BACKUPDIR
 
-# Install main applications
-sudo pacman -S --noconfirm --needed $MAIN_APPLICATIONS
-yaourt -S --noconfirm --needed $YAOURT_APPLICATIONS
-sudo -H pip install ptpython neovim
-
-if [[ ! "$SHELL" == "/usr/bin/fish" ]]; then
-    chsh -s /usr/bin/fish
+if [[ ! "$SHELL" == "/usr/local/bin/fish" ]]; then
+    chsh -s /usr/local/bin/fish
 fi
 
 # Set up symlinks
-for file in $(find . -name '*.symlink'); do
-	filename="$HOME/.$(basename $file .symlink)"
+for raw_filepath in $(find . -name '*.symlink'); do
+    filepath=$(echo $raw_filepath | cut -c 3- | rev | cut -c 9- | rev)
+    filename="$HOME/$filepath"
+    sourcepath="$BASEDIR/$raw_filepath"
+
 	# create backup if the file already exists
-	if [ -e $filename ]; then
-		mv $filename $BACKUPDIR
+    if [[ -e $filename ]] && ! [[ $(diff --brief $raw_filepath $filename) ]]; then
+		mv -v $filename $BACKUPDIR
 	fi
-	ln -s $BASEDIR/$file $filename
+
+    mkdir -p $(dirname $filename)
+	ln -Fs $sourcepath $filename
 done
 
-git config --global core.excludesfile "$HOME/.gitignore"
 mkdir -p $HOME/.config/nvim/autoload
 if [ ! -f ~/.config/nvim/autoload/plug.vim ]; then
 	curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
 		    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
-ln -s --force $HOME/.vimrc $HOME/.config/nvim/init.vim
-nvim +PlugInstall +PlugClean +qall
+nvim +PlugClean +PlugInstall +PlugUpdate +qall
 
-printf "Done!\n"
-printf "Old files has been put in $BACKUPDIR\n"
+echo "Done!"
+echo "Old files has been put in $BACKUPDIR"
