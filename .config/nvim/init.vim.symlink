@@ -89,6 +89,8 @@ set nobackup
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
 
+let g:ale_sign_column_always = 1
+
 " Plugin conf end }}}
 
 " Remappings {{{
@@ -104,6 +106,7 @@ function! ShowFiles()
     endif
 endfunction
 
+nmap <Leader>s <Plug>(Scalpel)
 nnoremap <silent><Leader>e :call ShowFiles()<CR>
 
 nnoremap <silent><Leader>a :Buffers<CR>
@@ -134,3 +137,6 @@ noremap <silent><Leader>E <Plug>(Scalpel)
 
 let g:python2_host_prog = '/usr/local/bin/python'
 let g:python3_host_prog = '/usr/local/bin/python3'
+
+packloadall
+silent! helptags ALL
