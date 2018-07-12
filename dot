@@ -3,7 +3,7 @@
 set -e
 
 clear
-
+( # Keep all actions within limited scope
 # Change to dir of script
 cd "$(dirname "$0")"
 
@@ -22,7 +22,7 @@ for raw_filepath in $(find . -name '*.symlink'); do
 
     # create backup if the file already exists
     if [[ -e $filename ]] && ! [[ $(diff --brief $raw_filepath $filename) ]]; then
-    mv -v $filename $BACKUPDIR
+        mv -v $filename $BACKUPDIR
     fi
 
     mkdir -p $(dirname $filename)
@@ -39,3 +39,4 @@ nvim +PlugClean +PlugInstall +PlugUpdate +qall
 
 echo "Done!"
 echo "Old files has been put in $BACKUPDIR"
+)
