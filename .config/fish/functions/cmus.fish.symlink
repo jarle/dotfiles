@@ -1,3 +1,0 @@
-function cmus --description "Launch cmus attached to user namespace(for notifications)"
-	reattach-to-user-namespace cmus
-end

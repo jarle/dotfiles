@@ -26,16 +26,8 @@ for raw_filepath in $(find . -name '*.symlink'); do
     fi
 
     mkdir -p $(dirname $filename)
-    ln -Fs $sourcepath $filename
+    ln --force --symbolic $sourcepath $filename
 done
-
-mkdir -p $HOME/.config/nvim/autoload
-if [ ! -f ~/.config/nvim/autoload/plug.vim ]; then
-    curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-fi
-
-nvim +PlugClean +PlugInstall +PlugUpdate +qall
 
 echo "Done!"
 echo "Old files has been put in $BACKUPDIR"

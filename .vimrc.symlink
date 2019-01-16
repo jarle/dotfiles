@@ -6,7 +6,7 @@ let mapleader = "\<Space>"
 
 call plug#begin('~/.vim/plugged')		"only place plugins between begin and end
     "essential
-    Plug 'w0rp/ale'
+    "Plug 'w0rp/ale'
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-commentary'
@@ -17,12 +17,7 @@ call plug#begin('~/.vim/plugged')		"only place plugins between begin and end
     Plug 'junegunn/fzf.vim'
     Plug 'junegunn/fzf'
     Plug 'Shougo/context_filetype.vim'
-    Plug 'Shougo/deoplete.nvim'
-    Plug 'Shougo/neosnippet.vim'
-    Plug 'Shougo/neosnippet-snippets'
-    Plug 'zchee/deoplete-jedi'
-    Plug 'zchee/deoplete-clang'
-    Plug 'ludovicchabant/vim-gutentags'
+    "Plug 'Shougo/deoplete.nvim'
     Plug 'sheerun/vim-polyglot'
     Plug 'wincent/scalpel'
 
@@ -34,6 +29,7 @@ call plug#end()
 
 " General {{{
 filetype on
+syntax on
 set number
 set relativenumber
 set showcmd                 "show entered command in bottom bar
@@ -55,11 +51,9 @@ set clipboard+=unnamedplus   "use x clipboard like sane people
 set wrap
 set list                     "show whitespace
 set scroll=7
-set shada="'50,<1000,s100,:0,n~/.local/share/nvim/shada"
 " General end }}}
 
 " Theme {{{
-let $TERM='screen-256color'
 set termguicolors
 set background=dark
 colorscheme base16-tomorrow
@@ -84,14 +78,6 @@ set noswapfile
 set nobackup
 " }}}
 
-" Plugin conf {{{
-
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_smart_case = 1
-
-let g:ale_sign_column_always = 1
-
-" Plugin conf end }}}
 
 " Remappings {{{
 nnoremap <leader>w :vsplit $MYVIMRC<cr>

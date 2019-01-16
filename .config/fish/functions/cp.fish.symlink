@@ -1,4 +1,0 @@
-function cp --description="verbose cp"
-    command cp -v $argv
-end
-

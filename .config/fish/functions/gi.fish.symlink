@@ -1,3 +1,0 @@
-function gi --description "generate gitignore from keywords"
-	curl -L -s https://www.gitignore.io/api/$argv
-end
