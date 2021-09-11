@@ -28,7 +28,7 @@ for raw_filepath in $(ls | grep ".symlink"); do
     fi
 
     mkdir -p $(dirname $filename)
-    ln --force --symbolic $sourcepath $filename
+    ln -fs $sourcepath $filename
 done
 
 # set up path-specific values
