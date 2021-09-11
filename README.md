@@ -1,10 +1,5 @@
 # dotfiles
 
-## Usage
+## Installation
 
-### https
-```
-mkdir -p ~/git
-git clone https://github.com/jarle/dotfiles.git
-~/git/dotfiles/dot
-```
+`curl https://raw.githubusercontent.com/jarle/dotfiles/master/install.sh | bash`
