@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 set -e
 
@@ -16,6 +16,18 @@ mkdir -p $BACKUPDIR
 GIT_PREVIOUS_NAME=$(git config --global user.name || echo "")
 GIT_PREVIOUS_EMAIL=$(git config --global user.email || echo "")
 
+# set up zsh
+type zsh || echo "Install zsh to continue"
+git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto" || echo "zprezto already installed"
+
+setopt EXTENDED_GLOB
+for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
+  ln -fs "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
+done
+curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh || echo "zplug already installed"
+
+
+
 # Set up symlinks
 for raw_filepath in $(ls | grep ".symlink"); do
     filepath=".$(echo $raw_filepath | sed 's/.symlink//g')"
@@ -31,6 +43,8 @@ for raw_filepath in $(ls | grep ".symlink"); do
     ln -fs $sourcepath $filename
 done
 
+source ~/.zshrc && zplug install
+
 # set up path-specific values
 [[ -n "$GIT_PREVIOUS_NAME" ]] && git config --global user.name "$GIT_PREVIOUS_NAME"
 [[ -n "$GIT_PREVIOUS_EMAIL" ]] && git config --global user.name "$GIT_PREVIOUS_EMAIL"
@@ -38,5 +52,7 @@ git config --global core.excludesfile "$HOME/.gitignore"
 
 echo "Done!"
 echo "Old files has been put in $BACKUPDIR"
+
+echo "Run p10k configure to set up theme"
 
 )

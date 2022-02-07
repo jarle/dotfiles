@@ -34,7 +34,6 @@ call plug#end()
 filetype on
 syntax on
 set number
-set relativenumber
 set showcmd                 "show entered command in bottom bar
 set cursorline              "highlight current line being edited
 set showmatch               "show matching parenthesis
