@@ -1,0 +1,6 @@
+# put local overrides here, file is sourced in .zshrc
+
+export PATH="$PATH:$HOME/bin"
+
+git config --global user.name ""
+git config --global user.email ""

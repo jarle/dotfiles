@@ -51,7 +51,6 @@ set shiftround
 set autowriteall
 set clipboard+=unnamedplus   "use x clipboard like sane people
 set wrap
-set list                     "show whitespace
 set scroll=7
 " General end }}}
 
