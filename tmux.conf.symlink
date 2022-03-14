@@ -63,3 +63,11 @@ bind 'C-s' send-prefix
 
 # Reload tmux config
 bind r source-file ~/.tmux.conf
+
+# theme
+#set -g @plugin "arcticicestudio/nord-tmux"
+set -g @plugin 'mattdavis90/base16-tmux'
+set -g @colors-base16 'tomorrow-night'
+
+# Install plugin manager
+run '~/.tmux/plugins/tpm/tpm'

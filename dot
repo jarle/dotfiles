@@ -23,6 +23,9 @@ for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
 done
 curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh || echo "zplug already installed"
 
+git clone --depth=1 https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm || echo
+git clone --depth=1 https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell || echo
+
 
 # Set up symlinks
 for raw_filepath in $(ls | grep ".symlink"); do
