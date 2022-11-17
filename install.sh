@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
 set -e
+set -o nounset
 
 SSL_REPO="git@github.com:jarle/dotfiles.git"
-HTTPS_REPO="https://github.com/jarle/dotfiles.git"
+HTTP_REPO="https://github.com/jarle/dotfiles.git"
 
 GIT_DIR="$HOME/git"
 TARGET="$GIT_DIR/dotfiles/"
