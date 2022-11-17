@@ -14,9 +14,13 @@ fi
 source ~/.zplug/init.zsh
 
 # Plugins
-zplug "plugins/git",   from:oh-my-zsh
-zplug "plugins/docker",   from:oh-my-zsh
-zplug "zsh-users/zsh-autosuggestions"
+zplug "plugins/git",        from:oh-my-zsh
+zplug "plugins/docker",     from:oh-my-zsh
+# zsh users
+zplug "zsh-users/zsh-completions",              defer:0
+zplug "zsh-users/zsh-autosuggestions",          defer:2, on:"zsh-users/zsh-completions"
+zplug "zsh-users/zsh-syntax-highlighting",      defer:3, on:"zsh-users/zsh-autosuggestions"
+
 zplug "b4b4r07/enhancd"
 zplug "junegunn/fzf"
 zplug "Peltoche/lsd"
@@ -34,6 +38,8 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
         eval "$("$BASE16_SHELL/profile_helper.sh")" > /dev/null
 
 source ~/.local_overrides.zsh
+
+zplug load
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
