@@ -22,6 +22,7 @@ zplug "zsh-users/zsh-completions",              defer:0
 zplug "zsh-users/zsh-autosuggestions",          defer:2, on:"zsh-users/zsh-completions"
 zplug "zsh-users/zsh-syntax-highlighting",      defer:3, on:"zsh-users/zsh-autosuggestions"
 
+zplug "jarle/chezmoi-completion"
 zplug "junegunn/fzf"
 zplug "Peltoche/lsd"
 zplug "romkatv/powerlevel10k", as:theme, depth:1
