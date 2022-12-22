@@ -14,14 +14,14 @@ fi
 source ~/.zplug/init.zsh
 
 # Plugins
-zplug "plugins/git",        from:oh-my-zsh
-zplug "plugins/docker",     from:oh-my-zsh
+zplug "plugins/git",                from:oh-my-zsh
+zplug "plugins/docker",             from:oh-my-zsh
+zplug "plugins/common-aliases",     from:oh-my-zsh
 # zsh users
 zplug "zsh-users/zsh-completions",              defer:0
 zplug "zsh-users/zsh-autosuggestions",          defer:2, on:"zsh-users/zsh-completions"
 zplug "zsh-users/zsh-syntax-highlighting",      defer:3, on:"zsh-users/zsh-autosuggestions"
 
-zplug "b4b4r07/enhancd"
 zplug "junegunn/fzf"
 zplug "Peltoche/lsd"
 zplug "romkatv/powerlevel10k", as:theme, depth:1
@@ -36,8 +36,6 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 [ -n "$PS1" ] && \
     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
         eval "$("$BASE16_SHELL/profile_helper.sh")" > /dev/null
-
-source ~/.local_overrides.zsh
 
 zplug load
 
