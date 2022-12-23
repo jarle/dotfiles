@@ -7,3 +7,6 @@
     rebase = merges
 [core]
     editor = vi
+[tag]
+    # Sort tags as version numbers whenever applicable, so 1.10.2 is AFTER 1.2.0.
+    sort = version:refname
