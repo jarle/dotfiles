@@ -18,7 +18,8 @@ zplug "plugins/git",                from:oh-my-zsh
 zplug "plugins/docker",             from:oh-my-zsh
 zplug "plugins/common-aliases",     from:oh-my-zsh
 # zsh users
-zplug "zsh-users/zsh-completions",              defer:0
+zplug "spwhitt/nix-zsh-completions"             defer:0
+zplug "zsh-users/zsh-completions",              defer:1, on:"spwhitt/nix-zsh-completions"
 zplug "zsh-users/zsh-autosuggestions",          defer:2, on:"zsh-users/zsh-completions"
 zplug "zsh-users/zsh-syntax-highlighting",      defer:3, on:"zsh-users/zsh-autosuggestions"
 
